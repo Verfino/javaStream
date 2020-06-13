@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Car {
     private String brand;
     private String model;
@@ -8,7 +10,12 @@ public class Car {
     private String regNum;
     private CarColor color;
 
-    public enum CarColor {red, blue, green, black, white, silver}
+    public enum CarColor {red, blue, green, black, white, silver;
+        public static Car.CarColor randColor() {
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
+    }
 
     public Car() {
     }
@@ -23,12 +30,22 @@ public class Car {
         this.color = color;
         this.regNum = regNum;
     }
+    public Car(String brand, String model, int year, int mileage, int hp, int engine, String regNum) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.mileage = mileage;
+        this.hp = hp;
+        this.engine = engine;
+        this.regNum = regNum;
+        this.color = CarColor.randColor();
+    }
 
     public String toString() {
         return String.format("%1$15s",this.brand) + " " + String.format("%1$15s",this.model) + " " +this.regNum;
     }
     public String show(){
-        return String.format("%1$15s",this.brand) + " " + String.format("%1$15s",this.model) + " " +this.regNum + " " +this.year + " " +String.format("%1$8s",this.mileage) + " " +String.format("%1$6s",this.color.toString()) + " " +this.engine;
+        return String.format("%1$15s",this.brand) + " " + String.format("%1$15s",this.model) + " " + String.format("%1$4s",this.getHp()) +" " +  this.regNum + " " +this.year + " " +String.format("%1$8s",this.mileage) + " " +String.format("%1$6s",this.color.toString()) + " " +this.engine;
     }
 
     public String getBrand(){
@@ -53,6 +70,7 @@ public class Car {
     public int getMileage(){
         return  this.mileage;
     }
+
 
 
 
